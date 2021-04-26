@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useMovies } from "../../contexts/MoviesContext";
-import ModalView from "../../modal/Modal";
 import MovieItem from "./movie-item";
 import $ from "jquery";
+import VideoModal from "../../modal/VideoModal";
 
 export default function Movies({ id, search }) {
   const { moviesList, getMovies, hasMore, setHasMore } = useMovies();
   const [page, setPage] = useState(1);
   const [isFetching, setIsFetching] = useState(false);
   const scrollRef = useRef();
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [modalVideo, setModalVideo] = useState();
 
   useEffect(() => {
     if (!isFetching) return;
@@ -41,20 +43,8 @@ export default function Movies({ id, search }) {
   }, []);
 
   const showVideo = (videoSrc) => {
-    // when the modal is opened autoplay it
-    $("#myModal").on("shown.bs.modal", function (e) {
-      // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
-      $("#video").attr(
-        "src",
-        videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0"
-      );
-    });
-
-    // stop playing the youtube video when I close the modal
-    $("#myModal").on("hide.bs.modal", function (e) {
-      // a poor man's stop video
-      $("#video").attr("src", videoSrc);
-    });
+    setShowVideoModal(true);
+    setModalVideo(videoSrc);
   };
 
   return (
@@ -79,7 +69,12 @@ export default function Movies({ id, search }) {
           </div>
         )}
 
-        <ModalView />
+        {showVideoModal && (
+          <VideoModal
+            setShowVideoModal={setShowVideoModal}
+            videoSrc={modalVideo}
+          />
+        )}
       </div>
     </>
   );

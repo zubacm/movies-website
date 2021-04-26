@@ -1,0 +1,76 @@
+$accent-color: #e7e7e7;
+$brand-color: #fe4141;
+$dark-color: #1e1b26;
+$yellow-color: #fca311;
+
+.container-card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 115px -14px black;
+
+  background: #1e1b26;
+  color: white;
+  padding: 20px;
+  margin: 40px;
+}
+
+.secondary-text {
+  font-size: 1.3rem;
+}
+
+.primary-text {
+  font-size: 1.6rem;
+}
+
+.red-text {
+  color: $brand-color;
+}
+
+.icon-col {
+  color: $brand-color;
+}
+
+.list-item {
+  border-left: 2px solid $brand-color;
+  padding-left: 6px;
+  margin: 5px 10px;
+}
+
+@media (max-width: 650px) {
+  .container-card {
+    margin: 0;
+    padding: 10px;
+  }
+
+  .secondary-text {
+    font-size: 0.7rem;
+  }
+  .primary-text {
+    font-size: 1rem;
+  }
+}
+
+.grid-wrapper {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+
+  .one-grid {
+    grid-column: 1 / 2;
+  }
+  .two-grid {
+    grid-column: 2 / 4;
+  }
+}
+
+@media (max-width: 650px) {
+  .grid-wrapper {
+    .one-grid {
+      grid-column: 1/4;
+    }
+    .two-grid {
+      grid-column: 1/4;
+    }
+  }
+}
